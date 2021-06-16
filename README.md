@@ -1,5 +1,7 @@
 # Lightrope
 
+[![npm version](https://badge.fury.io/js/lightrope.svg)](https://badge.fury.io/js/lightrope)
+
 ```html
 <body>
   <lr-counter>
