@@ -22,14 +22,3 @@ export class LightropeBase extends HTMLElement {
 		return this.querySelectorAll(`[data-target="${key}"]`)
 	}
 }
-
-customElements.define('lr-counter',
-	class extends LightropeBase {
-		inc() {
-			const count = this.target('count');
-			let cnt = +count.innerHTML;
-			cnt++;
-			count.innerHTML = cnt;
-		}
-	}
-);
