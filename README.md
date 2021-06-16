@@ -6,7 +6,7 @@
 <body>
   <lr-counter>
     <p data-target="count">0</p>
-    <button data-action="click->inc">Do thing!</button>
+    <button data-action="click->inc">Increment</button>
   </lr-counter>
   <script src="script.js"></script>
 </body>
