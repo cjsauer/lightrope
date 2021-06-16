@@ -2,11 +2,11 @@
 
 ```html
 <body>
-	<lr-counter>
-		<p data-target="count">0</p>
-		<button data-action="click->inc">Do thing!</button>
-	</lr-counter>
-	<script src="script.js"></script>
+  <lr-counter>
+    <p data-target="count">0</p>
+    <button data-action="click->inc">Do thing!</button>
+  </lr-counter>
+  <script src="script.js"></script>
 </body>
 ```
 
@@ -14,13 +14,13 @@
 import { LightropeBase } from 'lightrope';
 
 customElements.define('lr-counter',
-	class extends LightropeBase {
-		inc() {
-			const count = this.target('count');
-			let cnt = +count.innerHTML;
-			cnt++;
-			count.innerHTML = cnt;
-		}
-	}
+  class extends LightropeBase {
+    inc() {
+      const count = this.target('count');
+      let cnt = +count.innerHTML;
+      cnt++;
+      count.innerHTML = cnt;
+    }
+  }
 );
 ```
