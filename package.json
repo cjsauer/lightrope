@@ -1,0 +1,17 @@
+{
+  "name": "lightrope",
+  "version": "1.0.0",
+  "description": "Lightweight front-end framework for traditional multi-page applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "front-end",
+    "framework",
+    "multi-page",
+    "html"
+  ],
+  "author": "Calvin Sauer",
+  "license": "MIT"
+}
