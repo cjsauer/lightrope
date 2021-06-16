@@ -20,8 +20,7 @@ customElements.define('lr-counter',
     inc() {
       const count = this.target('count');
       let cnt = +count.innerHTML;
-      cnt++;
-      count.innerHTML = cnt;
+      count.innerHTML = cnt + 1;
     }
   }
 );
