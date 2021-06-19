@@ -8,7 +8,7 @@ customElements.define('lr-counter',
 
         countChanged(newCnt) {
             this.target('counter.count').textContent = newCnt;
-            this.dispatchEvent(new CustomEvent('counter.inc', { detail: { count: this.count() } }));
+            this.dispatchEvent(new CustomEvent('counter.inc'));
         }
 
         inc() {
