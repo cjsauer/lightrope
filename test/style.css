@@ -1,0 +1,21 @@
+.counter-group {
+    display: block;
+    background-color: aliceblue;
+    padding: 2em;
+}
+
+.counter-group [data-target="counter-group.counters"] {
+    display: flex;
+}
+
+.counter {
+    padding: 1em;
+    margin: 1em;
+    border: 1px dashed black;
+}
+
+.counter [data-target="counter.count"] {
+    display: block;
+    text-align: center;
+    font-size: 3em;
+}
