@@ -1,3 +1,44 @@
+/*
+ * Primary base class
+ */
+export class LightropeBase extends HTMLElement {
+    constructor() {
+        super();
+        this.registeredEventListeners = [];
+    }
+
+    connectedCallback() {
+        wireUpAllActions(this);
+
+        // Call subclass connect
+        this.connect();
+    }
+
+    disconnectedCallback() {
+        unwireAllActions(this);
+
+        // Call subclass disconnect
+        this.disconnect();
+    }
+
+    /*
+     * Subclass API
+     */
+    connect() { /* Override this in your base class */ }
+    disconnect() {  /* Override this in your base class */ }
+
+    target(key) {
+        return this.querySelector(`[data-target="${key}"]`);
+    }
+
+    targets(key) {
+        return Array.from(this.querySelectorAll(`[data-target="${key}"]`));
+    }
+} // END LightropeBase
+
+/*
+ * Private functions
+ */
 function parseAction(s) {
     const [eventName, tagMethodName] = s.split('->');
     const [tag, methodName] = tagMethodName.split('.');
@@ -29,49 +70,20 @@ function wireUpAction(host, el) {
     }
 }
 
-export class LightropeBase extends HTMLElement {
-    constructor() {
-        super();
-        this.registeredEventListeners = [];
+function wireUpAllActions(host) {
+    // Wire up any actions placed on the host component
+    if (host.dataset.action) {
+        wireUpAction(host, host);
     }
 
-    connect() { }
-    disconnect() { }
+    // Wire up child actions
+    const actionElements = host.querySelectorAll('[data-action]',);
+    actionElements.forEach(el => wireUpAction(host, el));
+}
 
-    connectedCallback() {
-        // Wire up actions
-
-        if (this.dataset.action) {
-            wireUpAction(this, this);
-        }
-
-        const actionElements = this.querySelectorAll('[data-action]',);
-        actionElements.forEach(el => wireUpAction(this, el));
-
-        // Call subclass connect
-        this.connect();
-    }
-
-    disconnectedCallback() {
-        // Unwire actions
-        this.registeredEventListeners.forEach(([el, eventName, callback]) => {
-            el.removeEventListener(eventName, callback);
-        });
-        this.registeredEventListeners = [];
-
-        // Call subclass disconnect
-        this.disconnect();
-    }
-
-    /*
-     * Subclass API
-     */
-
-    target(key) {
-        return this.querySelector(`[data-target="${key}"]`);
-    }
-
-    targets(key) {
-        return Array.from(this.querySelectorAll(`[data-target="${key}"]`));
-    }
+function unwireAllActions(host) {
+    host.registeredEventListeners.forEach(([el, eventName, callback]) => {
+        el.removeEventListener(eventName, callback);
+    });
+    host.registeredEventListeners = [];
 }

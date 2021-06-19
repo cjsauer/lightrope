@@ -11,19 +11,15 @@
 </head>
 
 <body>
-    <h1>Lightrope Sandbox</h1>
-
-    <lr-counter-group class="counter-group" data-action="counter.inc->counter-group.computeSum">
-        <h3>Counter total: <span data-target="counter-group.total">0</span></h3>
-        <div data-target="counter-group.counters">
-        </div>
+    <lr-counter-group total="0" data-action="counter.inc->counter-group.computeSum" class="counter-group">
+        <h3>Counter total: <span data-target="counter-group.total"></span></h3>
+        <div data-target="counter-group.counters"></div>
         <div>
-            <br>
             <button data-action="click->counter-group.addCounter">Add Counter</button>
         </div>
         <template data-target="counter-group.template">
-            <lr-counter class="counter" data-target="counter-group.counter">
-                <span data-target="counter.count">0</span>
+            <lr-counter count="0" data-target="counter-group.counter" class="counter">
+                <span data-target="counter.count"></span>
                 <button data-action="click->counter.inc">Increment</button>
             </lr-counter>
         </template>
