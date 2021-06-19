@@ -1,6 +1,6 @@
 {
   "name": "lightrope",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Lightweight front-end framework for traditional multi-page applications",
   "main": "index.js",
   "scripts": {
