@@ -21,7 +21,7 @@ Check out the [Live Demo](https://angry-sinoussi-e727a0.netlify.app/test/)
 ```
 
 ```javascript
-import { LightropeBase } from '../index.js';
+import { LightropeBase } from 'lightrope';
 
 customElements.define('lr-counter',
     class LightropeCounter extends LightropeBase {
