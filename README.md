@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/lightrope.svg)](https://badge.fury.io/js/lightrope)
 
-Check out the [Live Demo](https://60ce4dc410070114984c9ba6--angry-sinoussi-e727a0.netlify.app/test)
+Check out the [Live Demo](https://angry-sinoussi-e727a0.netlify.app/test/)
 
 ```html
 <lr-counter-group total="0" data-action="counter.inc->counter-group.computeSum" class="counter-group">
