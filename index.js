@@ -2,9 +2,19 @@
  * Primary base class
  */
 export class LightropeBase extends HTMLElement {
+    static get observedAttributes() {
+        // Automatically observe the attributes in the base class's static attributes object
+        return Object.keys(this.attributes || []);
+    }
+
     constructor() {
         super();
         this.registeredEventListeners = [];
+
+        // Set up automatic value fetching functions from base class's static attributes object
+        for (const [valName, parseFn] of Object.entries(this.constructor.attributes)) {
+            this[valName] = () => tryParse(parseFn, this.getAttribute(valName));
+        }
     }
 
     connectedCallback() {
@@ -19,6 +29,17 @@ export class LightropeBase extends HTMLElement {
 
         // Call subclass disconnect
         this.disconnect();
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue !== newValue) {
+            const methodName = name + 'Changed';
+            const method = this[methodName];
+            if (method) {
+                const parseFn = this.constructor.attributes[name] || (x => x);
+                method.call(this, tryParse(parseFn, newValue), tryParse(parseFn, oldValue));
+            }
+        }
     }
 
     /*
@@ -39,6 +60,10 @@ export class LightropeBase extends HTMLElement {
 /*
  * Private functions
  */
+function tryParse(parseFn, value) {
+    return value ? parseFn(value) : value;
+}
+
 function parseAction(s) {
     const [eventName, tagMethodName] = s.split('->');
     const [tag, methodName] = tagMethodName.split('.');

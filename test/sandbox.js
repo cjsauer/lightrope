@@ -2,38 +2,46 @@ import { LightropeBase } from '../index.js';
 
 customElements.define('lr-counter',
     class LightropeCounter extends LightropeBase {
-        connect() {
-            this.counter = this.target('counter.count');
+        static attributes = {
+            count: Number
         }
 
-        get count() {
-            return +this.counter.innerHTML;
+        countChanged(newCnt) {
+            this.target('counter.count').textContent = newCnt;
+            this.dispatchEvent(new CustomEvent('counter.inc', { detail: { count: this.count() } }));
         }
 
         inc() {
-            this.counter.innerHTML = this.count + 1;
-            this.dispatchEvent(new CustomEvent('counter.inc', { detail: { count: this.count } }));
+            this.setAttribute('count', this.count() + 1);
         }
     }
 );
 
 customElements.define('lr-counter-group',
     class LightropeCounterGroup extends LightropeBase {
+        static attributes = {
+            total: Number
+        }
+
         connect() {
             this.addCounter();
             this.computeSum();
         }
 
+        totalChanged(newTotal) {
+            this.target('counter-group.total').textContent = newTotal;
+        }
+
         computeSum() {
-            this.total = this.target('counter-group.total');
-            const sum = this.targets('counter-group.counter').reduce((sum, n) => sum + n.count, 0);
-            this.total.innerHTML = sum;
+            const sum = this.targets('counter-group.counter').reduce((sum, n) => sum + n.count(), 0);
+            this.setAttribute('total', sum);
         }
 
         addCounter() {
             const template = this.target('counter-group.template').content;
             const group = this.target('counter-group.counters');
             group.appendChild(template.cloneNode(true));
+            this.computeSum();
         }
     }
 );
